@@ -10,6 +10,7 @@
   , "node-fs-aff"
   , "node-glob-basic"
   , "prelude"
+  , "record-extra"
   , "strings"
   , "sunde"
   , "tuples"

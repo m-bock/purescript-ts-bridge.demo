@@ -1,4 +1,4 @@
-module TsCodeGen.Gen where
+module SampleTsGen.TsBridgeClass where
 
 {-GEN:imports-}
 
@@ -42,6 +42,8 @@ import PureScript.CST.Print as PureScript.CST.Print
 import PureScript.CST.Range.TokenList as PureScript.CST.Range.TokenList
 import PureScript.CST.TokenStream as PureScript.CST.TokenStream
 import PureScript.CST.Types as PureScript.CST.Types
+import Record.Extra as Record.Extra
+import SampleApp.Types as SampleApp.Types
 import Test.QuickCheck as Test.QuickCheck
 import Test.Spec as Test.Spec
 import Test.Spec.Reporter.Base as Test.Spec.Reporter.Base
@@ -388,6 +390,9 @@ instance ToTsBridge
 instance ToTsBridge Test.QuickCheck.Result where
   toTsBridge = tsOpaqueType "Test.QuickCheck" "Result" []
 
+instance ToTsBridge Record.Extra.SList where
+  toTsBridge = tsOpaqueType "Record.Extra" "SList" []
+
 instance ToTsBridge Test.Spec.ComputationType where
   toTsBridge = tsOpaqueType "Test.Spec" "ComputationType" []
 
@@ -576,5 +581,8 @@ instance ToTsBridge TsBridgeGen.Types.PursModule where
 
 instance ToTsBridge TsBridgeGen.Types.PursDef where
   toTsBridge = tsOpaqueType "TsBridgeGen.Types" "PursDef" []
+
+instance ToTsBridge SampleApp.Types.AppState where
+  toTsBridge = tsOpaqueType "SampleApp.Types" "AppState" []
 
 {-GEN:END-}
