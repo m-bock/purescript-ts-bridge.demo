@@ -19,3 +19,5 @@ generate-ts:
       run \
       --main "SampleTsGen.Main" \
       --node-args "--output-dir {{TS_TYPES_OUT}}"
+
+generate: generate-bridge generate-ts

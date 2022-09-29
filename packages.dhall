@@ -40,9 +40,11 @@ in  upstream
       , "transformers"
       , "tuples"
       , "typelevel"
+      , "heterogeneous"
+      , "record-extra"
       ]
     , repo = "https://github.com/thought2/purescript-typescript-bridge.git"
-    , version = "8906d94eb6330e57acee8330da85afaac5bbbb02"
+    , version = "8237232ab2120c89a1e94e053ebf9b24ab569267"
     }
   with node-glob-basic =
     { dependencies =
@@ -60,12 +62,9 @@ in  upstream
     , repo = "https://github.com/natefaubion/purescript-node-glob-basic.git"
     , version = "v1.2.2"
     }
-
   with record-extra =
     { dependencies =
       [ "arrays", "functions", "lists", "record", "typelevel-prelude" ]
     , repo = "https://github.com/justinwoo/purescript-record-extra.git"
     , version = "0.15.0-starter-kit"
     }
-
-

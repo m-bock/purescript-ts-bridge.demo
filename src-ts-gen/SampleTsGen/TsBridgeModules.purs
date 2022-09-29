@@ -13,12 +13,10 @@ import Type.Proxy (Proxy(..))
 myTsProgram :: TsProgram
 myTsProgram =
   tsProgram
-    [ tsModuleFile "Main/index"
-        [
+    [ tsModuleFile "SampleApp.Types/index"
+        [ -- tsTypeAlias "Bar" (Proxy :: _ (AppState))
         ]
-    , tsModuleFile "Other/index"
-        [
-        ]
+
     ]
 
 {-GEN:END-}

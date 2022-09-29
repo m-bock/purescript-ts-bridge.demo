@@ -20,6 +20,7 @@
       , "quickcheck"
       , "spec"
       , "typelevel"
+      , "typescript-bridge"
       ]
     # (./spago.dhall).dependencies
 , packages = ./packages.dhall

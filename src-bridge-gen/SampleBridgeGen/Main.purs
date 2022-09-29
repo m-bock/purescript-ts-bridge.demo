@@ -11,7 +11,7 @@ import Node.Encoding (Encoding(..))
 import Node.FS.Aff (readTextFile, writeTextFile)
 import Node.Path (FilePath)
 import Record.Extra (sequenceRecord)
-import TsBridgeGen (replaceComment, runImportWriterM, TsBridgeGenM, genInstances, getPursModules, getSpagoGlobs, runTsBridgeGenM)
+import TsBridgeGen (ModuleName(..), PursModule(..), TsBridgeGenM, genInstances, getPursModules, getSpagoGlobs, replaceComment, runImportWriterM, runTsBridgeGenM)
 
 app :: TsBridgeGenM Unit
 app = do
@@ -22,7 +22,7 @@ app = do
     let
       sections /\ imports = runImportWriterM $ sequenceRecord
         { instances: defs
-            # A.filter (\_ -> true)
+            # A.filter (\(PursModule (ModuleName mn) _) -> mn == "SampleApp.Types")
             # genInstances
         }
 
@@ -52,3 +52,4 @@ updateFile filePath f = do
   content <- liftAff $ readTextFile UTF8 filePath
   let content' = f content
   liftAff $ writeTextFile UTF8 filePath content'
+  log ("Patched GEN-comments in " <> filePath)
