@@ -28,7 +28,7 @@ prettier@^2.7.1:
 
 "purescript-typescript-bridge@https://github.com/thought2/purescript-typescript-bridge.git#dist":
   version "1.0.0"
-  resolved "https://github.com/thought2/purescript-typescript-bridge.git#e3330eb6083cb804ab3c65a47f26346162ad7466"
+  resolved "https://github.com/thought2/purescript-typescript-bridge.git#67559450e3d4c61d67dc7922fabd3276200fa81f"
   dependencies:
     minimatch "^5.1.0"
     prettier "^2.7.1"

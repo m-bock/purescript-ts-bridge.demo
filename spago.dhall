@@ -1,5 +1,5 @@
 { name = "sample-project"
-, dependencies = [ "prelude", "typescript-bridge" ]
+, dependencies = [ "prelude" ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs" ]
 }

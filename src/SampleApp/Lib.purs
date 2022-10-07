@@ -1,4 +1,4 @@
-module SampleApp.Types where
+module SampleApp.Lib where
 
 import Prelude
 
