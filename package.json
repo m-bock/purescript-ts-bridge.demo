@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "purescript-typescript-bridge": "https://github.com/thought2/purescript-typescript-bridge.git#dist"
-  },
-  "type": "module",
-  "license": "MIT"
-}
