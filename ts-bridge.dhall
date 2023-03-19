@@ -6,6 +6,8 @@
     , "prelude"
     , "typescript-bridge"
     , "maybe"
+    , "newtype"
+    , "nullable"
     ]
 , packages = ./packages.dhall
 , sources = 

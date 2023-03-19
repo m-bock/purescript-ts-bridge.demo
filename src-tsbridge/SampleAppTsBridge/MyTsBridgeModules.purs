@@ -2,21 +2,33 @@ module SampleAppTsBridge.MyTsBridgeModules where
 
 import Prelude
 
+import Data.Maybe as Data.Maybe
 import SampleApp.App as SampleApp.App
 import SampleApp.Lib as SampleApp.Lib
-import SampleAppTsBridge.MyTsBridgeClass (MappingToTsBridge(..))
-import TsBridge (TsProgram, mergeTsPrograms, mkTypeGenCli, tsModuleFile, tsOpaqueType, tsProgram, tsTypeAlias, tsUnsupported, tsValue)
+import TsBridge (TsProgram, Var, mkTypeGenCli, tsModuleFile, tsProgram, tsValue)
 import Type.Proxy (Proxy(..))
 
 myTsProgram :: TsProgram
-myTsProgram = 
+myTsProgram =
   tsProgram
-    [ tsModuleFile "SampleApp.Lib/index"
-        [ tsTypeAlias Mp "MyNumber" (Proxy :: _ SampleApp.Lib.MyNumber)
-        , tsTypeAlias Mp "User" (Proxy :: _ SampleApp.Lib.User)
-        , tsValue Mp "val1" SampleApp.Lib.val1
-        , tsValue Mp "val2" SampleApp.Lib.val2
-        , tsValue Mp "user1" SampleApp.Lib.user1
-        ]
+    [ SampleApp.Lib.tsModules
+
+    --     tsModuleFile "SampleApp.Lib/index"
+    --     [ tsValue Tok "val1" SampleApp.Lib.val1
+    --     , tsValue Tok "val2" SampleApp.Lib.val2
+    --     , tsValue Tok "user1" SampleApp.Lib.user1
+    --     ]
+    -- , tsModuleFile "SampData.Maybe2/index"
+    --     [ tsTypeAlias Tok "MaybeX" (Proxy :: _ (Data.Maybe.Maybe (Var "A")))
+    --     ]
     ]
 
+-- x = {
+--   "MyNumber": declTypeAlias (Proxy :: _ SampleApp.Lib.MyNumber),
+--   val1: declVal 
+-- }
+
+-- y = do
+--   alias "MyNumber" (Proxy :: _ SampleApp.Lib.MyNumber) Tok
+--   opaque "MuType" (Proxy :: _ SampleApp.Lib.MyNumber) Tok
+--   val "user1" SampleApp.Lib.user1 Tok

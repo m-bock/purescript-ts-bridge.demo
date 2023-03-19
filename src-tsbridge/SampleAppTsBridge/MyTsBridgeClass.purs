@@ -1,25 +1,22 @@
 module SampleAppTsBridge.MyTsBridgeClass where
 
 import Data.Either (Either)
-import Data.Generic.Rep as Auto.Data.Generic.Rep
 import Data.Maybe (Maybe)
-import Data.Ordering as Auto.Data.Ordering
-import Prim.RowList (class RowToList)
-import SampleApp.Lib as Auto.SampleApp.Lib
-import TsBridge (Var)
+import Data.Nullable (Nullable)
+import Data.Symbol (class IsSymbol)
 import TsBridge as TSB
 import Type.Proxy (Proxy(..))
 
 class ToTsBridge a where
   toTsBridge :: a -> TSB.TsBridgeM TSB.TsType
 
-data MappingToTsBridge = Mp
+data Tok = Tok
 
-instance ToTsBridge a => TSB.Mapping MappingToTsBridge a (TSB.TsBridgeM TSB.TsType) where
-  mapping _ = toTsBridge
+instance ToTsBridge a => TSB.ToTsBridgeBy Tok a where
+  toTsBridgeBy _ = toTsBridge
 
 instance ToTsBridge a => ToTsBridge (Proxy a) where
-  toTsBridge = TSB.defaultProxy Mp
+  toTsBridge = TSB.defaultProxy Tok
 
 instance (ToTsBridge a, ToTsBridge b) => ToTsBridge (Either a b) where
   toTsBridge = TSB.defaultOpaqueType "Data.Either" "Either" [ "A", "B" ]
@@ -28,8 +25,8 @@ instance (ToTsBridge a, ToTsBridge b) => ToTsBridge (Either a b) where
 instance ToTsBridge Number where
   toTsBridge = TSB.defaultNumber
 
-instance (TSB.DefaultRecord MappingToTsBridge r) => ToTsBridge (Record r) where
-  toTsBridge = TSB.defaultRecord Mp
+instance (TSB.DefaultRecord Tok r) => ToTsBridge (Record r) where
+  toTsBridge = TSB.defaultRecord Tok
 
 instance ToTsBridge String where
   toTsBridge = TSB.defaultString
@@ -38,20 +35,17 @@ instance ToTsBridge Boolean where
   toTsBridge = TSB.defaultBoolean
 
 instance ToTsBridge a => ToTsBridge (Array a) where
-  toTsBridge = TSB.defaultArray Mp
+  toTsBridge = TSB.defaultArray Tok
+
+instance ToTsBridge a => ToTsBridge (Nullable a) where
+  toTsBridge = TSB.defaultNullable Tok
 
 instance (ToTsBridge a, ToTsBridge b) => ToTsBridge (a -> b) where
-  toTsBridge = TSB.defaultFunction Mp
+  toTsBridge = TSB.defaultFunction Tok
 
 instance ToTsBridge a => ToTsBridge (Maybe a) where
   toTsBridge = TSB.defaultOpaqueType "Data.Maybe" "Maybe" [ "A" ]
     [ toTsBridge (Proxy :: _ a) ]
 
-instance ToTsBridge (TSB.Var "A") where
-  toTsBridge _ = TSB.defaultTypeVar (TSB.Var :: _ "A")
-
-instance ToTsBridge (TSB.Var "B") where
-  toTsBridge _ = TSB.defaultTypeVar (TSB.Var :: _ "B")
-
-instance ToTsBridge (TSB.Var "C") where
-  toTsBridge _ = TSB.defaultTypeVar (TSB.Var :: _ "C")
+instance IsSymbol sym => ToTsBridge (TSB.Var sym) where
+  toTsBridge _ = TSB.defaultTypeVar (TSB.Var :: _ sym)
