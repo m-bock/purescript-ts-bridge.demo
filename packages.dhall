@@ -38,31 +38,9 @@ in  upstream
     , "typelevel"
     ]
     , repo = "https://github.com/thought2/purescript-typescript-bridge.git"
-    , version = "8b2301c5e8869065901ea2c64707b10fc5c07ffa"
+    , version = "c1de7469b86b50e41f8b38f46e981f68f2a96546"
     }
-  with record-extra =
-    { dependencies =
-      [ "arrays", "functions", "lists", "record", "typelevel-prelude" ]
-    , repo = "https://github.com/justinwoo/purescript-record-extra.git"
-    , version = "0.15.0-starter-kit"
-    }
-  with node-workerbees =
-    { dependencies =
-      [ "aff"
-      , "argonaut-core"
-      , "arraybuffer-types"
-      , "avar"
-      , "effect"
-      , "either"
-      , "exceptions"
-      , "maybe"
-      , "newtype"
-      , "parallel"
-      , "variant"
-      ]
-    , repo = "https://github.com/natefaubion/purescript-node-workerbees.git"
-    , version = "node-esm"
-    }
+  
   with tidy =
     { dependencies =
       [ "arrays"
@@ -82,24 +60,4 @@ in  upstream
       ]
     , repo = "https://github.com/natefaubion/purescript-tidy.git"
     , version = "fa1c7c7b251341f3a22ca4e402f46614486878db"
-    }
-  with typedenv =
-    { dependencies =
-      [ "aff"
-      , "effect"
-      , "either"
-      , "foldable-traversable"
-      , "foreign-object"
-      , "integers"
-      , "maybe"
-      , "numbers"
-      , "prelude"
-      , "record"
-      , "spec"
-      , "strings"
-      , "type-equality"
-      , "typelevel-prelude"
-      ]
-    , repo = "https://github.com/thought2/purescript-typedenv.git"
-    , version = "purs15"
     }

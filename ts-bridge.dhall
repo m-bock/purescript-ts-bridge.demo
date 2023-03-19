@@ -1,5 +1,6 @@
 { name = "ts-type-generation-project"
 , dependencies =
+    (./spago.dhall).dependencies #
     [ "console"
     , "effect"
     , "either"

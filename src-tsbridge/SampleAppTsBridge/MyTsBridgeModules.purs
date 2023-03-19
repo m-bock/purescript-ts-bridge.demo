@@ -1,34 +1,25 @@
 module SampleAppTsBridge.MyTsBridgeModules where
 
-import Prelude
-
-import Data.Maybe as Data.Maybe
-import SampleApp.App as SampleApp.App
+import Data.Int as Data.Int
+import Data.Nullable as Data.Nullable
 import SampleApp.Lib as SampleApp.Lib
-import TsBridge (TsProgram, Var, mkTypeGenCli, tsModuleFile, tsProgram, tsValue)
-import Type.Proxy (Proxy(..))
+import SampleAppTsBridge.MyTsBridgeClass (Tok(..))
+import TsBridge (TsProgram, Var, tsModuleFile, tsProgram, tsValues)
 
 myTsProgram :: TsProgram
 myTsProgram =
   tsProgram
     [ SampleApp.Lib.tsModules
-
-    --     tsModuleFile "SampleApp.Lib/index"
-    --     [ tsValue Tok "val1" SampleApp.Lib.val1
-    --     , tsValue Tok "val2" SampleApp.Lib.val2
-    --     , tsValue Tok "user1" SampleApp.Lib.user1
-    --     ]
-    -- , tsModuleFile "SampData.Maybe2/index"
-    --     [ tsTypeAlias Tok "MaybeX" (Proxy :: _ (Data.Maybe.Maybe (Var "A")))
-    --     ]
+    , tsModuleFile "Data.Int"
+        [ tsValues Tok
+            { fromNumber: Data.Int.fromNumber
+            , round: Data.Int.round
+            }
+        ]
+    , tsModuleFile "Data.Nullable"
+        [ tsValues Tok
+            { toNullable: Data.Nullable.toNullable :: _ (Var "A") -> _
+            , toMaybe: Data.Nullable.toMaybe :: _ (Var "A") -> _
+            }
+        ]
     ]
-
--- x = {
---   "MyNumber": declTypeAlias (Proxy :: _ SampleApp.Lib.MyNumber),
---   val1: declVal 
--- }
-
--- y = do
---   alias "MyNumber" (Proxy :: _ SampleApp.Lib.MyNumber) Tok
---   opaque "MuType" (Proxy :: _ SampleApp.Lib.MyNumber) Tok
---   val "user1" SampleApp.Lib.user1 Tok

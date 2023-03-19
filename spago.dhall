@@ -1,5 +1,6 @@
 { name = "sample-project"
-, dependencies = [ "maybe", "newtype", "prelude", "nullable" ]
+, dependencies =
+  [ "integers", "maybe", "newtype", "nullable", "prelude", "variant" ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs" ]
 }

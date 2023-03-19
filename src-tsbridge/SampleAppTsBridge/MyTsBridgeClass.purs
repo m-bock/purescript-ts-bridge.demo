@@ -1,51 +1,70 @@
 module SampleAppTsBridge.MyTsBridgeClass where
 
+import Prelude
+
 import Data.Either (Either)
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable)
 import Data.Symbol (class IsSymbol)
+import Data.Variant (Variant)
+import Effect (Effect)
 import TsBridge as TSB
 import Type.Proxy (Proxy(..))
 
-class ToTsBridge a where
-  toTsBridge :: a -> TSB.TsBridgeM TSB.TsType
+class TsBridge a where
+  tsBridge :: a -> TSB.TsBridgeM TSB.TsType
 
 data Tok = Tok
 
-instance ToTsBridge a => TSB.ToTsBridgeBy Tok a where
-  toTsBridgeBy _ = toTsBridge
+instance TsBridge a => TSB.TsBridgeBy Tok a where
+  tsBridgeBy _ = tsBridge
 
-instance ToTsBridge a => ToTsBridge (Proxy a) where
-  toTsBridge = TSB.defaultProxy Tok
+instance TsBridge a => TsBridge (Proxy a) where
+  tsBridge = TSB.defaultProxy Tok
 
-instance (ToTsBridge a, ToTsBridge b) => ToTsBridge (Either a b) where
-  toTsBridge = TSB.defaultOpaqueType "Data.Either" "Either" [ "A", "B" ]
-    [ toTsBridge (Proxy :: _ a), toTsBridge (Proxy :: _ b) ]
+instance (TsBridge a, TsBridge b) => TsBridge (Either a b) where
+  tsBridge = TSB.defaultOpaqueType "Data.Either" "Either" [ "A", "B" ]
+    [ tsBridge (Proxy :: _ a), tsBridge (Proxy :: _ b) ]
 
-instance ToTsBridge Number where
-  toTsBridge = TSB.defaultNumber
+instance TsBridge Number where
+  tsBridge = TSB.defaultNumber
 
-instance (TSB.DefaultRecord Tok r) => ToTsBridge (Record r) where
-  toTsBridge = TSB.defaultRecord Tok
+instance (TSB.DefaultRecord Tok r) => TsBridge (Record r) where
+  tsBridge = TSB.defaultRecord Tok
 
-instance ToTsBridge String where
-  toTsBridge = TSB.defaultString
+instance (TSB.DefaultVariant Tok r) => TsBridge (Variant r) where
+  tsBridge = TSB.defaultVariant Tok
 
-instance ToTsBridge Boolean where
-  toTsBridge = TSB.defaultBoolean
+instance TsBridge String where
+  tsBridge = TSB.defaultString
 
-instance ToTsBridge a => ToTsBridge (Array a) where
-  toTsBridge = TSB.defaultArray Tok
+instance TsBridge Boolean where
+  tsBridge = TSB.defaultBoolean
 
-instance ToTsBridge a => ToTsBridge (Nullable a) where
-  toTsBridge = TSB.defaultNullable Tok
+instance TsBridge Int where
+  tsBridge = TSB.defaultInt
 
-instance (ToTsBridge a, ToTsBridge b) => ToTsBridge (a -> b) where
-  toTsBridge = TSB.defaultFunction Tok
+instance TsBridge Char where
+  tsBridge = TSB.defaultChar
 
-instance ToTsBridge a => ToTsBridge (Maybe a) where
-  toTsBridge = TSB.defaultOpaqueType "Data.Maybe" "Maybe" [ "A" ]
-    [ toTsBridge (Proxy :: _ a) ]
+instance TsBridge Unit where
+  tsBridge = TSB.defaultUnit
 
-instance IsSymbol sym => ToTsBridge (TSB.Var sym) where
-  toTsBridge _ = TSB.defaultTypeVar (TSB.Var :: _ sym)
+instance TsBridge a => TsBridge (Array a) where
+  tsBridge = TSB.defaultArray Tok
+
+instance TsBridge a => TsBridge (Effect a) where
+  tsBridge = TSB.defaultEffect Tok
+
+instance TsBridge a => TsBridge (Nullable a) where
+  tsBridge = TSB.defaultNullable Tok
+
+instance (TsBridge a, TsBridge b) => TsBridge (a -> b) where
+  tsBridge = TSB.defaultFunction Tok
+
+instance TsBridge a => TsBridge (Maybe a) where
+  tsBridge = TSB.defaultOpaqueType "Data.Maybe" "Maybe" [ "A" ]
+    [ tsBridge (Proxy :: _ a) ]
+
+instance IsSymbol sym => TsBridge (TSB.Var sym) where
+  tsBridge _ = TSB.defaultTypeVar (TSB.Var :: _ sym)
