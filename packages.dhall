@@ -38,7 +38,7 @@ in  upstream
     , "typelevel"
     ]
     , repo = "https://github.com/thought2/purescript-typescript-bridge.git"
-    , version = "c1de7469b86b50e41f8b38f46e981f68f2a96546"
+    , version = "4cea16098fcf9e023e026bbd059212c3e5bfa1c1"
     }
   
   with tidy =
