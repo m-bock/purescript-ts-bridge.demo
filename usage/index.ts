@@ -16,7 +16,7 @@ import * as Int from "../output/Data.Int";
 //   }
 // };
 
-const user: Lib.User_ = Lib.mkUser_({
+const user: Lib.User_ = Lib.mkUser({
   name: "",
   age: Int.round(12),
   hobbies: [],

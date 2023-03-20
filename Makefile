@@ -1,11 +1,8 @@
 build:
 	spago build
-	spago build --config ts-bridge.dhall
-
 generate:
 	rm -rf output/*/index.d.ts
 	spago \
-	  --config ts-bridge.dhall \
 	  run \
 	    --main SampleAppTsBridge.Main \
 	    --node-args " \

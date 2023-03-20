@@ -27,6 +27,8 @@ type User =
 
 newtype User_ = User_ User
 
+mkUser = User_
+
 derive instance Newtype User_ _
 
 instance TsBridge User_ where
@@ -97,6 +99,6 @@ tsModules =
         , bla
         , app
         , x
-        , mkUser_ : User_
+        , mkUser
         }
     ]

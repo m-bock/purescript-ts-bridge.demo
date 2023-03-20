@@ -1,3 +1,0 @@
-{
-    "purescript.buildCommand": "spago --config ts-bridge.dhall build --purs-args --json-errors"
-}

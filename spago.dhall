@@ -1,6 +1,16 @@
 { name = "sample-project"
 , dependencies =
-  [ "integers", "maybe", "newtype", "nullable", "prelude", "variant" ]
+  [ "console"
+  , "effect"
+  , "either"
+  , "integers"
+  , "maybe"
+  , "newtype"
+  , "nullable"
+  , "prelude"
+  , "typescript-bridge"
+  , "variant"
+  ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs" ]
 }
