@@ -1,4 +1,7 @@
-# Sample Project for `purescript-typescript-bridge`
+# Sample Project for `purescript-ts-bridge`
+
+See [purescript-ts-bridge](https://github.com/thought2/purescript-ts-bridge) for further documentation.
+
 
 ## Instructions
 

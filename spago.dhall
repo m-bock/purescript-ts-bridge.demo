@@ -1,4 +1,4 @@
-{ name = "sample-project"
+{ name = "ts-bridge-demo-project"
 , dependencies =
   [ "console"
   , "effect"

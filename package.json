@@ -1,5 +1,5 @@
 {
-  "name": "purescript-typescript-bridge.sample-project",
+  "name": "purescript-ts-bridge-demo-project",
   "version": "1.0.0",
   "main": "dist/index.js",
   "type": "module",
