@@ -1,5 +1,6 @@
 module SampleAppTsBridge.MyTsBridgeModules where
 
+
 import Data.Int as Data.Int
 import Data.Nullable as Data.Nullable
 import SampleApp.Lib as SampleApp.Lib

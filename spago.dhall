@@ -8,7 +8,7 @@
   , "newtype"
   , "nullable"
   , "prelude"
-  , "typescript-bridge"
+  , "ts-bridge"
   , "variant"
   ]
 , packages = ./packages.dhall

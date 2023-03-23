@@ -3,7 +3,7 @@ let upstream =
         sha256:f1531b29c21ac437ffe5666c1b6cc76f0a9c29d3c9d107ff047aa2567744994f
 
 in  upstream
-  with typescript-bridge =
+  with ts-bridge =
     { dependencies =
     [ "aff"
     , "aff-promise"
@@ -32,32 +32,11 @@ in  upstream
     , "spec-discovery"
     , "strings"
     , "sunde"
-    , "tidy"
     , "transformers"
     , "tuples"
     , "typelevel"
+    , "variant"
     ]
-    , repo = "https://github.com/thought2/purescript-typescript-bridge.git"
-    , version = "4cea16098fcf9e023e026bbd059212c3e5bfa1c1"
-    }
-  
-  with tidy =
-    { dependencies =
-      [ "arrays"
-      , "control"
-      , "dodo-printer"
-      , "either"
-      , "foldable-traversable"
-      , "lists"
-      , "maybe"
-      , "newtype"
-      , "ordered-collections"
-      , "partial"
-      , "prelude"
-      , "language-cst-parser"
-      , "strings"
-      , "tuples"
-      ]
-    , repo = "https://github.com/natefaubion/purescript-tidy.git"
-    , version = "fa1c7c7b251341f3a22ca4e402f46614486878db"
+    , repo = "https://github.com/thought2/purescript-ts-bridge.git"
+    , version = "b1941af192506516d97ac5e2dd4b90c7f9cdd596"
     }
