@@ -5,6 +5,7 @@ import Prelude
 import Control.Promise (Promise)
 import Control.Promise as Prom
 import Data.Either (Either(..))
+import Data.Either as Either
 import Data.Maybe (Maybe(..))
 import Data.Newtype (class Newtype)
 import Data.Nullable (Nullable, null)
@@ -15,7 +16,7 @@ import Data.Variant as V
 import Effect (Effect)
 import Effect.Class.Console (log)
 import SampleApp.TsBridge.Class (class TsBridge, Tok(..), tsBridge)
-import TsBridge (TsModuleFile, defaultNewtype, defaultOpaqueType, tsModuleFile, tsValues)
+import TsBridge (TsModuleFile, Var, defaultNewtype, defaultOpaqueType, tsModuleFile, tsValues)
 import TsBridge as TSB
 import Type.Proxy (Proxy(..))
 
@@ -106,6 +107,23 @@ temperature = Celsius 36.2
 
 --------------------------------------------------------------------------------
 
+type A = Var "A"
+
+type B = Var "B"
+
+type C = Var "C"
+
+darkness :: forall a. Unit -> Maybe a
+darkness _ = Nothing
+
+mapMaybe :: forall a b. (a -> b) -> Maybe a -> Maybe b
+mapMaybe = map
+
+either :: forall a b c. (a -> c) -> (b -> c) -> Either a b -> c
+either = Either.either
+
+--------------------------------------------------------------------------------
+
 tsModules :: Array TsModuleFile
 tsModules =
   tsModuleFile moduleName
@@ -129,4 +147,10 @@ tsModules =
         , alien
         , temperature
         }
+    , tsValues Tok
+        ({ darkness } :: { darkness :: _ -> _ A })
+    , tsValues Tok
+        ({ mapMaybe } :: { mapMaybe :: (A -> B) -> _ })
+    , tsValues Tok
+        ({ either } :: { either :: (A -> C) -> (B -> _) -> _ })
     ]
