@@ -1,10 +1,10 @@
-module SampleAppTsBridge.MyTsBridgeModules where
+module SampleApp.TsBridge.Modules where
 
 
 import Data.Int as Data.Int
 import Data.Nullable as Data.Nullable
 import SampleApp.Lib as SampleApp.Lib
-import SampleAppTsBridge.MyTsBridgeClass (Tok(..))
+import SampleApp.TsBridge.Class (Tok(..))
 import TsBridge (TsProgram, Var, tsModuleFile, tsProgram, tsValues)
 
 myTsProgram :: TsProgram

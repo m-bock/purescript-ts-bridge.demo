@@ -1,4 +1,4 @@
-module SampleAppTsBridge.MyTsBridgeClass where
+module SampleApp.TsBridge.Class where
 
 import Prelude
 
@@ -20,8 +20,7 @@ instance TsBridge a => TSB.TsBridgeBy Tok a where
   tsBridgeBy _ = tsBridge
 
 instance (TsBridge a, TsBridge b) => TsBridge (Either a b) where
-  tsBridge = TSB.defaultOpaqueType "Data.Either" "Either" [ "A", "B" ]
-    [ tsBridge (Proxy :: _ a), tsBridge (Proxy :: _ b) ]
+  tsBridge = TSB.defaultEither Tok
 
 instance TsBridge Number where
   tsBridge = TSB.defaultNumber
@@ -60,8 +59,7 @@ instance (TsBridge a, TsBridge b) => TsBridge (a -> b) where
   tsBridge = TSB.defaultFunction Tok
 
 instance TsBridge a => TsBridge (Maybe a) where
-  tsBridge = TSB.defaultOpaqueType "Data.Maybe" "Maybe" [ "A" ]
-    [ tsBridge (Proxy :: _ a) ]
+  tsBridge = TSB.defaultMaybe Tok
 
 instance IsSymbol sym => TsBridge (TSB.Var sym) where
   tsBridge _ = TSB.defaultTypeVar (TSB.Var :: _ sym)

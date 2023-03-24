@@ -35,5 +35,5 @@ in  upstream
     , "variant"
     ]
     , repo = "https://github.com/thought2/purescript-ts-bridge.git"
-    , version = "v0.1.0"
+    , version = "77c2df7573af57601a927be1166e83b2ce40c41a"
     }

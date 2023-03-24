@@ -4,7 +4,7 @@ generate:
 	rm -rf output/*/index.d.ts
 	spago \
 	  run \
-	    --main SampleAppTsBridge.Main \
+	    --main SampleApp.TsBridge.Main \
 	    --node-args " \
 	        --output-dir output \
 	        --prettier 'node_modules/prettier/bin-prettier.js' \

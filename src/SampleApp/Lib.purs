@@ -10,7 +10,7 @@ import Data.Variant (Variant)
 import Data.Variant as V
 import Effect (Effect)
 import Effect.Class.Console (log)
-import SampleAppTsBridge.MyTsBridgeClass (class TsBridge, Tok(..))
+import SampleApp.TsBridge.Class (class TsBridge, Tok(..))
 import TsBridge (TsModuleFile, tsModuleFile, tsValues)
 import TsBridge as TSB
 import Type.Proxy (Proxy(..))
