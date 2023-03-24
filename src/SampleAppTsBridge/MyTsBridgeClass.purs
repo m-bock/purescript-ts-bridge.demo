@@ -12,15 +12,12 @@ import TsBridge as TSB
 import Type.Proxy (Proxy(..))
 
 class TsBridge a where
-  tsBridge :: a -> TSB.TsBridgeM TSB.TsType
+  tsBridge :: Proxy a -> TSB.TsBridgeM TSB.TsType
 
 data Tok = Tok
 
 instance TsBridge a => TSB.TsBridgeBy Tok a where
   tsBridgeBy _ = tsBridge
-
-instance TsBridge a => TsBridge (Proxy a) where
-  tsBridge = TSB.defaultProxy Tok
 
 instance (TsBridge a, TsBridge b) => TsBridge (Either a b) where
   tsBridge = TSB.defaultOpaqueType "Data.Either" "Either" [ "A", "B" ]

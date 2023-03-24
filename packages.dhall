@@ -9,12 +9,9 @@ in  upstream
     , "aff-promise"
     , "arrays"
     , "console"
-    , "dodo-printer"
     , "effect"
     , "either"
     , "foldable-traversable"
-    , "foreign-object"
-    , "language-cst-parser"
     , "maybe"
     , "newtype"
     , "node-buffer"
@@ -38,5 +35,5 @@ in  upstream
     , "variant"
     ]
     , repo = "https://github.com/thought2/purescript-ts-bridge.git"
-    , version = "b1941af192506516d97ac5e2dd4b90c7f9cdd596"
+    , version = "v0.1.0"
     }

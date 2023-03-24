@@ -32,7 +32,7 @@ mkUser = User_
 derive instance Newtype User_ _
 
 instance TsBridge User_ where
-  tsBridge = TSB.defaultBrandedType Tok moduleName "User_" [] []
+  tsBridge = TSB.defaultNewtype Tok moduleName "User_" [] []
 
 val1 :: Number
 val1 = 12.0
