@@ -2,10 +2,12 @@ module SampleApp.TsBridge.Class where
 
 import Prelude
 
+import Control.Promise (Promise)
 import Data.Either (Either)
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable)
 import Data.Symbol (class IsSymbol)
+import Data.Tuple (Tuple)
 import Data.Variant (Variant)
 import Effect (Effect)
 import TsBridge as TSB
@@ -21,6 +23,9 @@ instance TsBridge a => TSB.TsBridgeBy Tok a where
 
 instance (TsBridge a, TsBridge b) => TsBridge (Either a b) where
   tsBridge = TSB.defaultEither Tok
+
+instance (TsBridge a, TsBridge b) => TsBridge (Tuple a b) where
+  tsBridge = TSB.defaultTuple Tok
 
 instance TsBridge Number where
   tsBridge = TSB.defaultNumber
@@ -60,6 +65,9 @@ instance (TsBridge a, TsBridge b) => TsBridge (a -> b) where
 
 instance TsBridge a => TsBridge (Maybe a) where
   tsBridge = TSB.defaultMaybe Tok
+
+instance TsBridge a => TsBridge (Promise a) where
+  tsBridge = TSB.defaultPromise Tok
 
 instance IsSymbol sym => TsBridge (TSB.Var sym) where
   tsBridge _ = TSB.defaultTypeVar (TSB.Var :: _ sym)

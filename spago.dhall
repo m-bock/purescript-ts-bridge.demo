@@ -1,6 +1,7 @@
 { name = "ts-bridge-demo-project"
 , dependencies =
-  [ "console"
+  [ "aff-promise"
+  , "console"
   , "effect"
   , "either"
   , "integers"
@@ -9,6 +10,7 @@
   , "nullable"
   , "prelude"
   , "ts-bridge"
+  , "tuples"
   , "variant"
   ]
 , packages = ./packages.dhall

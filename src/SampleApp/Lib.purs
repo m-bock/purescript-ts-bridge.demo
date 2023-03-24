@@ -2,103 +2,131 @@ module SampleApp.Lib where
 
 import Prelude
 
+import Control.Promise (Promise)
+import Control.Promise as Prom
+import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
 import Data.Newtype (class Newtype)
 import Data.Nullable (Nullable, null)
 import Data.Nullable as Nul
+import Data.Tuple (Tuple(..))
 import Data.Variant (Variant)
 import Data.Variant as V
 import Effect (Effect)
 import Effect.Class.Console (log)
-import SampleApp.TsBridge.Class (class TsBridge, Tok(..))
-import TsBridge (TsModuleFile, tsModuleFile, tsValues)
+import SampleApp.TsBridge.Class (class TsBridge, Tok(..), tsBridge)
+import TsBridge (TsModuleFile, defaultNewtype, defaultOpaqueType, tsModuleFile, tsValues)
 import TsBridge as TSB
 import Type.Proxy (Proxy(..))
 
 moduleName :: String
 moduleName = "SampleApp.Lib"
 
-type User =
-  { name :: String
-  , age :: Int
-  , hobbies :: Array String
-  , address :: Nullable String
-  }
+--------------------------------------------------------------------------------
 
-newtype User_ = User_ User
+animals :: Array String
+animals = [ "cat", "dog", "fish" ]
 
-mkUser = User_
+isLoggedIn :: Boolean
+isLoggedIn = false
 
-derive instance Newtype User_ _
+alpha :: Char
+alpha = 'a'
 
-instance TsBridge User_ where
-  tsBridge = TSB.defaultNewtype Tok moduleName "User_" [] []
+runIt :: Effect Unit
+runIt = log "hello!"
 
-val1 :: Number
-val1 = 12.0
+result :: Either String Int
+result = Left "error"
 
-val2 :: Number
-val2 = 13.0
+calculate :: Int -> Int -> Int
+calculate x y = x + y - 34
 
-foo :: Number -> String
-foo _ = ""
+age :: Int
+age = 99
 
-id :: forall a. a -> a
-id x = x
+username :: Maybe String
+username = Just "anton"
 
-app :: String -> Boolean -> Effect Unit
-app _ _ = log "hello"
+gravity :: Number
+gravity = 9.81
 
-bla :: Nullable { x :: Number, y :: Number }
-bla = Nul.toNullable Nothing
+name :: String
+name = "Anna"
 
-user1 :: User
-user1 =
-  { name: "Foo"
+pair :: Tuple Int Boolean
+pair = Tuple 34 true
+
+nada :: Unit
+nada = unit
+
+dish :: Nullable String
+dish = Nul.notNull "pizza"
+
+wish :: Variant (luck :: Int, strength :: Int)
+wish = V.inj (Proxy :: _ "luck") 32
+
+user
+  :: { name :: String
+     , age :: Int
+     , hobbies :: Array String
+     , address :: Nullable String
+     }
+user =
+  { name: "Santa"
   , age: 99
   , hobbies: [ "biking", "running" ]
   , address: null
   }
 
-user2 :: User_
-user2 = User_
-  { name: "Foo"
-  , age: 99
-  , hobbies: [ "biking", "running" ]
-  , address: null
-  }
+letsPromise :: Effect (Promise Number)
+letsPromise = Prom.fromAff $ pure 12.0
 
-type Foo = Variant
-  ( bar :: Number
-  , baz :: String
-  )
+--------------------------------------------------------------------------------
 
-x :: Foo
-x = V.inj (Proxy :: _ "bar") 3.0
+data Species = Animal | Human | Alien
 
--- foreign import data NativeTuple :: Type -> Type -> Type
+instance TsBridge Species where
+  tsBridge = defaultOpaqueType moduleName "Species" []
 
--- instance (TsBridge a, TsBridge b)=>  TsBridge (NativeTuple a b) where
---   tsBridge = ado
---     x <- tsBridge (Proxy :: _ a)
---     y <- tsBridge (Proxy :: _ b)
---     in DTS.UnsafeInline ("[" <> printTsType x <> "," <> printTsType y <> "] as const")
+alien :: Species
+alien = Alien
 
--- mkNativeTuple :: forall a b. a -> b -> NativeTuple a b
--- mkNativeTuple x y = unsafeCoerce $ [ unsafeCoerce x, unsafeCoerce y ]
+--------------------------------------------------------------------------------
+
+newtype Celsius = Celsius Number
+
+derive instance Newtype Celsius _
+
+instance TsBridge Celsius where
+  tsBridge = defaultNewtype Tok moduleName "Celsius" []
+
+temperature :: Celsius
+temperature = Celsius 36.2
+
+--------------------------------------------------------------------------------
 
 tsModules :: Array TsModuleFile
 tsModules =
-  tsModuleFile "SampleApp.Lib"
+  tsModuleFile moduleName
     [ tsValues Tok
-        { val1
-        , val2
-        , user1
-        , user2
-        , foo
-        , bla
-        , app
-        , x
-        , mkUser
+        { animals
+        , isLoggedIn
+        , alpha
+        , runIt
+        , result
+        , calculate
+        , age
+        , username
+        , gravity
+        , name
+        , pair
+        , nada
+        , dish
+        , wish
+        , user
+        , letsPromise
+        , alien
+        , temperature
         }
     ]
