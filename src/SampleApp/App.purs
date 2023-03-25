@@ -21,9 +21,9 @@ main :: Effect Unit
 main = do
   log "Hello!"
   log case Lib.alien of
-    Animal -> "A"
-    Human -> "B"
-    Alien -> "C"
+    Lib.Animal -> "A"
+    Lib.Human -> "B"
+    Lib.Alien -> "C"
   pure unit
 
 --------------------------------------------------------------------------------
