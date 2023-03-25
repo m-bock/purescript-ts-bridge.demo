@@ -1,26 +1,29 @@
 module SampleApp.TsBridge.Modules where
 
-
+import Data.Either (Either)
 import Data.Int as Data.Int
 import Data.Nullable as Data.Nullable
 import SampleApp.Lib as SampleApp.Lib
-import SampleApp.TsBridge.Class (Tok(..))
-import TsBridge (TsProgram, Var, tsModuleFile, tsProgram, tsValues)
+import SampleApp.App as SampleApp.App
 
-myTsProgram :: TsProgram
+import SampleApp.TsBridge.Class (Tok(..))
+import TsBridge as TSB
+
+myTsProgram :: Either TSB.Error TSB.TsProgram
 myTsProgram =
-  tsProgram
+  TSB.tsProgram
     [ SampleApp.Lib.tsModules
-    , tsModuleFile "Data.Int"
-        [ tsValues Tok
+    , SampleApp.App.tsModules
+    , TSB.tsModuleFile "Data.Int"
+        [ TSB.tsValues Tok
             { fromNumber: Data.Int.fromNumber
             , round: Data.Int.round
             }
         ]
-    , tsModuleFile "Data.Nullable"
-        [ tsValues Tok
-            { toNullable: Data.Nullable.toNullable :: _ (Var "A") -> _
-            , toMaybe: Data.Nullable.toMaybe :: _ (Var "A") -> _
+    , TSB.tsModuleFile "Data.Nullable"
+        [ TSB.tsValues Tok
+            { toNullable: Data.Nullable.toNullable :: _ (TSB.TypeVar "A") -> _
+            , toMaybe: Data.Nullable.toMaybe :: _ (TSB.TypeVar "A") -> _
             }
         ]
     ]

@@ -1,6 +1,7 @@
 let upstream =
-      https://github.com/purescript/package-sets/releases/download/psc-0.15.4-20220901/packages.dhall
-        sha256:f1531b29c21ac437ffe5666c1b6cc76f0a9c29d3c9d107ff047aa2567744994f
+      https://github.com/purescript/package-sets/releases/download/psc-0.15.7-20230325/packages.dhall
+        sha256:98bd559174f64f82966f13583a14b67ab2010e8b1b79ba69f51af457d469d979
+
 
 in  upstream
   with ts-bridge =
@@ -8,6 +9,7 @@ in  upstream
     [ "aff"
     , "aff-promise"
     , "arrays"
+    , "bifunctors"
     , "console"
     , "effect"
     , "either"
@@ -15,10 +17,11 @@ in  upstream
     , "maybe"
     , "newtype"
     , "node-buffer"
-    , "node-child-process"
     , "node-fs"
     , "node-fs-aff"
     , "node-path"
+    , "node-process"
+    , "nullable"
     , "optparse"
     , "ordered-collections"
     , "ordered-set"
@@ -28,12 +31,10 @@ in  upstream
     , "spec"
     , "spec-discovery"
     , "strings"
-    , "sunde"
     , "transformers"
     , "tuples"
-    , "typelevel"
     , "variant"
-    ]
+  ]
     , repo = "https://github.com/thought2/purescript-ts-bridge.git"
-    , version = "cbfc12629c86ebe4e69525df3c1b23b8f061d99e"
+    , version = "6eeebaa759563bf1a8970842fa4ff97b78e8cd81"
     }

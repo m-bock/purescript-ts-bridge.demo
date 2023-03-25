@@ -1,34 +1,29 @@
+import * as App from "../output/SampleApp.App";
 import * as Lib from "../output/SampleApp.Lib";
 import * as Int from "../output/Data.Int";
+import * as Prim from "../output/Prim";
+import { Maybe } from "~/Data.Maybe";
 
-// const y = Lib.x;
+App.main();
 
-// const y2 = Lib.user1.address;
+console.log(Lib.gravity);
 
-// const y3 = Lib.user2.address;
+console.log(Lib.animals.map((x) => `${x}!`).join(" "));
 
-// const f = (): number => {
-//   switch (Lib.x.type) {
-//     case "bar":
-//       return Lib.x.value;
-//     case "baz":
-//       return 0.0;
-//   }
-// };
+const address: string = Lib.user.address || "no address";
 
-const user: Lib.User_ = Lib.mkUser({
-  name: "",
-  age: Int.round(12),
-  hobbies: [],
-  address: null,
-});
+console.log(address);
 
+Lib.letsPromise().then((x) => console.log(`${x} was promised.`));
 
-export const main = () => {
-    console.log("Hello!")
-    console.log(Lib.user1)
-}
+const temp: number = Lib.temperature;
 
+console.log(temp);
 
+const result: Prim.Int = Lib.calculate(Int.round(12))(Int.round(12));
 
-main()
+console.log(result);
+
+const userNameLemgth: Maybe<number> = Lib.mapMaybe<string, number>(
+  (x) => x.length
+)(Lib.username);

@@ -5,7 +5,7 @@ See [purescript-ts-bridge](https://github.com/thought2/purescript-ts-bridge) for
 
 ## Instructions
 
-- `git checkout https://github.com/thought2/purescript-typescript-bridge.sample-project.git`
+- `git checkout https://github.com/thought2/purescript-ts-bridge.demo.git`
 
 - `yarn install` (only to install prettier locally)
 

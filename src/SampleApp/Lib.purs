@@ -15,8 +15,7 @@ import Data.Variant (Variant)
 import Data.Variant as V
 import Effect (Effect)
 import Effect.Class.Console (log)
-import SampleApp.TsBridge.Class (class TsBridge, Tok(..), tsBridge)
-import TsBridge (TsModuleFile, Var, defaultNewtype, defaultOpaqueType, tsModuleFile, tsValues)
+import SampleApp.TsBridge.Class (class TsBridge, Tok(..))
 import TsBridge as TSB
 import Type.Proxy (Proxy(..))
 
@@ -88,7 +87,7 @@ letsPromise = Prom.fromAff $ pure 12.0
 data Species = Animal | Human | Alien
 
 instance TsBridge Species where
-  tsBridge = defaultOpaqueType moduleName "Species" []
+  tsBridge = TSB.tsBridgeOpaqueType moduleName "Species" []
 
 alien :: Species
 alien = Alien
@@ -100,18 +99,18 @@ newtype Celsius = Celsius Number
 derive instance Newtype Celsius _
 
 instance TsBridge Celsius where
-  tsBridge = defaultNewtype Tok moduleName "Celsius" []
+  tsBridge = TSB.tsBridgeNewtype Tok moduleName "Celsius" []
 
 temperature :: Celsius
 temperature = Celsius 36.2
 
 --------------------------------------------------------------------------------
 
-type A = Var "A"
+type A = TSB.TypeVar "A"
 
-type B = Var "B"
+type B = TSB.TypeVar "B"
 
-type C = Var "C"
+type C = TSB.TypeVar "C"
 
 darkness :: forall a. Unit -> Maybe a
 darkness _ = Nothing
@@ -124,10 +123,10 @@ either = Either.either
 
 --------------------------------------------------------------------------------
 
-tsModules :: Array TsModuleFile
+tsModules :: Either TSB.Error (Array TSB.TsModuleFile)
 tsModules =
-  tsModuleFile moduleName
-    [ tsValues Tok
+  TSB.tsModuleFile moduleName
+    [ TSB.tsValues Tok
         { animals
         , isLoggedIn
         , alpha
@@ -147,10 +146,10 @@ tsModules =
         , alien
         , temperature
         }
-    , tsValues Tok
+    , TSB.tsValues Tok
         ({ darkness } :: { darkness :: _ -> _ A })
-    , tsValues Tok
+    , TSB.tsValues Tok
         ({ mapMaybe } :: { mapMaybe :: (A -> B) -> _ })
-    , tsValues Tok
+    , TSB.tsValues Tok
         ({ either } :: { either :: (A -> C) -> (B -> _) -> _ })
     ]

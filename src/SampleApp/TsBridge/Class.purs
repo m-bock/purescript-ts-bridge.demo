@@ -22,52 +22,52 @@ instance TsBridge a => TSB.TsBridgeBy Tok a where
   tsBridgeBy _ = tsBridge
 
 instance (TsBridge a, TsBridge b) => TsBridge (Either a b) where
-  tsBridge = TSB.defaultEither Tok
+  tsBridge = TSB.tsBridgeEither Tok
 
 instance (TsBridge a, TsBridge b) => TsBridge (Tuple a b) where
-  tsBridge = TSB.defaultTuple Tok
+  tsBridge = TSB.tsBridgeTuple Tok
 
 instance TsBridge Number where
-  tsBridge = TSB.defaultNumber
+  tsBridge = TSB.tsBridgeNumber
 
-instance (TSB.DefaultRecord Tok r) => TsBridge (Record r) where
-  tsBridge = TSB.defaultRecord Tok
+instance (TSB.TsBridgeRecord Tok r) => TsBridge (Record r) where
+  tsBridge = TSB.tsBridgeRecord Tok
 
-instance (TSB.DefaultVariant Tok r) => TsBridge (Variant r) where
-  tsBridge = TSB.defaultVariant Tok
+instance (TSB.TsBridgeVariant Tok r) => TsBridge (Variant r) where
+  tsBridge = TSB.tsBridgeVariant Tok
 
 instance TsBridge String where
-  tsBridge = TSB.defaultString
+  tsBridge = TSB.tsBridgeString
 
 instance TsBridge Boolean where
-  tsBridge = TSB.defaultBoolean
+  tsBridge = TSB.tsBridgeBoolean
 
 instance TsBridge Int where
-  tsBridge = TSB.defaultInt
+  tsBridge = TSB.tsBridgeInt
 
 instance TsBridge Char where
-  tsBridge = TSB.defaultChar
+  tsBridge = TSB.tsBridgeChar
 
 instance TsBridge Unit where
-  tsBridge = TSB.defaultUnit
+  tsBridge = TSB.tsBridgeUnit
 
 instance TsBridge a => TsBridge (Array a) where
-  tsBridge = TSB.defaultArray Tok
+  tsBridge = TSB.tsBridgeArray Tok
 
 instance TsBridge a => TsBridge (Effect a) where
-  tsBridge = TSB.defaultEffect Tok
+  tsBridge = TSB.tsBridgeEffect Tok
 
 instance TsBridge a => TsBridge (Nullable a) where
-  tsBridge = TSB.defaultNullable Tok
+  tsBridge = TSB.tsBridgeNullable Tok
 
 instance (TsBridge a, TsBridge b) => TsBridge (a -> b) where
-  tsBridge = TSB.defaultFunction Tok
+  tsBridge = TSB.tsBridgeFunction Tok
 
 instance TsBridge a => TsBridge (Maybe a) where
-  tsBridge = TSB.defaultMaybe Tok
+  tsBridge = TSB.tsBridgeMaybe Tok
 
 instance TsBridge a => TsBridge (Promise a) where
-  tsBridge = TSB.defaultPromise Tok
+  tsBridge = TSB.tsBridgePromise Tok
 
-instance IsSymbol sym => TsBridge (TSB.Var sym) where
-  tsBridge _ = TSB.defaultTypeVar (TSB.Var :: _ sym)
+instance IsSymbol sym => TsBridge (TSB.TypeVar sym) where
+  tsBridge = TSB.tsBridgeTypeVar

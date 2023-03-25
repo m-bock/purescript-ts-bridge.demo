@@ -1,14 +1,10 @@
 build:
 	spago build
+
 generate:
 	rm -rf output/*/index.d.ts
-	spago \
-	  run \
-	    --main SampleApp.TsBridge.Main \
-	    --node-args " \
-	        --output-dir output \
-	        --prettier 'node_modules/prettier/bin-prettier.js' \
-	  	    "
+	spago run --main SampleApp.TsBridge.Main
+	yarn run prettier --write output/*/index.d.ts
 
 run:
 	tsc
