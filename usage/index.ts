@@ -2,7 +2,7 @@ import * as App from "../output/SampleApp.App";
 import * as Lib from "../output/SampleApp.Lib";
 import * as Int from "../output/Data.Int";
 import * as Prim from "../output/Prim";
-import { Maybe } from "~/Data.Maybe";
+import { Maybe } from "../output/Data.Maybe";
 
 App.main();
 

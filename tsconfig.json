@@ -1,17 +1,10 @@
 {
   "compilerOptions": {
-    "paths": {
-      "~/*": ["./output/*"]
-    },
     "moduleResolution": "node",
     "target": "ESNext",
     "outDir": "dist",
-    "typeRoots": ["./generated-ts-types"],
     "strict": true,
     "esModuleInterop": true,
   },
-  "include": ["output", "usage"],
-  "ts-node": {
-    "require": ["tsconfig-paths/register"]
-  }
+  "include": ["output", "usage"]
 }
