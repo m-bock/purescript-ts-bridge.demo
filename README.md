@@ -5,9 +5,17 @@ See [purescript-ts-bridge](https://github.com/thought2/purescript-ts-bridge) for
 
 ## Instructions
 
-- `git checkout https://github.com/thought2/purescript-ts-bridge.demo.git`
+- Clone this repo
 
-- `yarn install` (only to install prettier locally)
+- Install the latest version of spago and purescript:
+  
+  `npm install -g spago purescript` 
+  
+  or run
+  
+  `nix develop` to setup the environment with Nix.
+
+- run `yarn install` (only to install prettier locally)
 
 - run `make build` to build the sample app.
 
