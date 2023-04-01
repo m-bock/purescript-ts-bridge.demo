@@ -3,6 +3,7 @@ module SampleApp.TsBridge.Class where
 import Prelude
 
 import Control.Promise (Promise)
+import DTS as DTS
 import Data.Either (Either)
 import Data.Maybe (Maybe)
 import Data.Nullable (Nullable)
@@ -11,10 +12,10 @@ import Data.Tuple (Tuple)
 import Data.Variant (Variant)
 import Effect (Effect)
 import TsBridge as TSB
-import Type.Proxy (Proxy(..))
+import Type.Proxy (Proxy)
 
-class TsBridge a where
-  tsBridge :: Proxy a -> TSB.TsBridgeM TSB.TsType
+class TsBridge (a :: Type) where
+  tsBridge :: Proxy a -> TSB.TsBridgeM DTS.TsType
 
 data Tok = Tok
 

@@ -5,6 +5,7 @@ module SampleApp.App where
 
 import Prelude
 
+import DTS as DTS
 import Data.Either (Either)
 import Effect (Effect)
 import Effect.Class.Console (log)
@@ -28,7 +29,7 @@ main = do
 
 --------------------------------------------------------------------------------
 
-tsModules :: Either TSB.Error (Array TSB.TsModuleFile)
+tsModules :: Either TSB.AppError (Array DTS.TsModuleFile)
 tsModules =
   TSB.tsModuleFile moduleName
     [ TSB.tsValues Tok

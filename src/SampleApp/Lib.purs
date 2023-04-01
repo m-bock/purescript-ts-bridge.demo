@@ -4,6 +4,7 @@ import Prelude
 
 import Control.Promise (Promise)
 import Control.Promise as Prom
+import DTS as DTS
 import Data.Either (Either(..))
 import Data.Either as Either
 import Data.Maybe (Maybe(..))
@@ -87,7 +88,7 @@ letsPromise = Prom.fromAff $ pure 12.0
 data Species = Animal | Human | Alien
 
 instance TsBridge Species where
-  tsBridge = TSB.tsBridgeOpaqueType moduleName "Species" []
+  tsBridge = TSB.tsBridgeOpaqueType { moduleName, typeName: "Species", typeArgs: [] }
 
 alien :: Species
 alien = Alien
@@ -99,7 +100,7 @@ newtype Celsius = Celsius Number
 derive instance Newtype Celsius _
 
 instance TsBridge Celsius where
-  tsBridge = TSB.tsBridgeNewtype Tok moduleName "Celsius" []
+  tsBridge = TSB.tsBridgeNewtype Tok { moduleName, typeName: "Celsius", typeArgs: [] }
 
 temperature :: Celsius
 temperature = Celsius 36.2
@@ -123,7 +124,7 @@ either = Either.either
 
 --------------------------------------------------------------------------------
 
-tsModules :: Either TSB.Error (Array TSB.TsModuleFile)
+tsModules :: Either TSB.AppError (Array DTS.TsModuleFile)
 tsModules =
   TSB.tsModuleFile moduleName
     [ TSB.tsValues Tok

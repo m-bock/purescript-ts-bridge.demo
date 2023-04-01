@@ -1,15 +1,15 @@
 module SampleApp.TsBridge.Modules where
 
+import DTS as DTS
 import Data.Either (Either)
 import Data.Int as Data.Int
 import Data.Nullable as Data.Nullable
-import SampleApp.Lib as SampleApp.Lib
 import SampleApp.App as SampleApp.App
-
+import SampleApp.Lib as SampleApp.Lib
 import SampleApp.TsBridge.Class (Tok(..))
 import TsBridge as TSB
 
-myTsProgram :: Either TSB.Error TSB.TsProgram
+myTsProgram :: Either TSB.AppError DTS.TsProgram
 myTsProgram =
   TSB.tsProgram
     [ SampleApp.Lib.tsModules

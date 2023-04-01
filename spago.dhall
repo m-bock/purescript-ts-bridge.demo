@@ -2,6 +2,7 @@
 , dependencies =
   [ "aff-promise"
   , "console"
+  , "dts"
   , "effect"
   , "either"
   , "integers"
