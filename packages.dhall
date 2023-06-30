@@ -38,5 +38,5 @@ with ts-bridge =
       , "variant"
       , "variant-encodings"
       ]
-  , version = "3ae1cec840b523f2b3031c6a09b88e2b8a2e37d2"
+  , version = "3fe0e5dd6276822e1c43c1040356e3977559c26d"
   }

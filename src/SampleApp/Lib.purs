@@ -7,15 +7,19 @@ import Control.Promise as Prom
 import DTS as DTS
 import Data.Either (Either(..))
 import Data.Either as Either
+import Data.Generic.Rep (class Generic)
 import Data.Maybe (Maybe(..))
-import Data.Newtype (class Newtype)
+import Data.Newtype (class Newtype, un)
 import Data.Nullable (Nullable, null)
 import Data.Nullable as Nul
 import Data.Tuple (Tuple(..))
+import Data.Tuple.Nested (type (/\))
 import Data.Variant (Variant)
 import Data.Variant as V
 import Effect (Effect)
 import Effect.Class.Console (log)
+import LabeledData.TransformEntry.Transforms (ArgsToRecord, LowerFirst, Prefix)
+import LabeledData.VariantLike.Generic (genericFromVariant, genericToVariant)
 import SampleApp.TsBridge.Class (class TsBridge, Tok(..))
 import TsBridge as TSB
 import Type.Proxy (Proxy(..))
@@ -124,6 +128,44 @@ either = Either.either
 
 --------------------------------------------------------------------------------
 
+data Some
+  = Root
+  | Segments (Array String)
+
+derive instance Generic Some _
+
+newtype SomeV = SomeV
+  ( Variant
+      ( root :: {}
+      , segments :: { _1 :: Array String }
+      )
+  )
+
+derive instance Newtype SomeV _
+
+instance TsBridge SomeV where
+  tsBridge = TSB.tsBridgeNewtype Tok
+    { moduleName
+    , typeName: "SomeV"
+    , typeArgs: []
+    }
+
+val1 :: SomeV
+val1 = SomeV $ V.inj (Proxy :: _ "root") {}
+
+val2 :: SomeV
+val2 = SomeV $ V.inj (Proxy :: _ "segments") { _1: [ "a", "b" ] }
+
+type DefaultOpts = (LowerFirst /\ ArgsToRecord (Prefix "_"))
+
+someToSomeV :: Some -> SomeV
+someToSomeV = SomeV <<< genericToVariant (Proxy :: _ DefaultOpts)
+
+someVToSome :: SomeV -> Some
+someVToSome = un SomeV >>> genericFromVariant (Proxy :: _ DefaultOpts)
+
+--------------------------------------------------------------------------------
+
 tsModules :: Either TSB.AppError (Array DTS.TsModuleFile)
 tsModules =
   TSB.tsModuleFile moduleName
@@ -146,6 +188,8 @@ tsModules =
         , letsPromise
         , alien
         , temperature
+        , val1
+        , val2
         }
     , TSB.tsValues Tok
         ({ darkness } :: { darkness :: _ -> _ A })
